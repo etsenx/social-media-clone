@@ -1,5 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import NextAuthLayout from "@/components/nextauth-session/NextAuthLayout";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -18,12 +20,30 @@ export const metadata = {
 
 export default function RootLayout({ children }) {
   return (
-    <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
-        {children}
-      </body>
-    </html>
+    <NextAuthLayout>
+      <html lang="en">
+        <body
+          className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        >
+          <header className="navbar bg-gray-100 px-12">
+            <div className="flex-1">
+              <a className="btn btn-ghost normal-case text-xl">X Clone</a>
+            </div>
+            <div className="flex-none">
+              <Avatar>
+                <AvatarImage src="https://github.com/shadcn.png" />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+            </div>
+          </header>
+          {children}
+          <footer className="footer bg-gray-100 p-4">
+            <div className="flex justify-center">
+              <p>© 2023 X Clone. All rights reserved.</p>
+            </div>
+          </footer>
+        </body>
+      </html>
+    </NextAuthLayout>
   );
 }
